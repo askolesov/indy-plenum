@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-18.04
     #TODO: move this to hyperledger?
     container: m00sey/indy-node-build:latest
-    strategy:
-      matrix:
-        module: [common, crypto, ledger, plenum, state, storage, stp_core, stp_zmq]
-      fail-fast: false
+#    strategy:
+#      matrix:
+#        module: [common, crypto, ledger, plenum, state, storage, stp_core, stp_zmq]
+#      fail-fast: false
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -19,14 +19,15 @@ jobs:
         run: pip install .[tests]
 
       - name: Run Indy Plenum ${{ matrix.module }} tests
-        run: python -m pytest -l -vv --junitxml=test-result-plenum-${{ matrix.module }}.xml ${{ matrix.module }}
+#        run: python -m pytest -l -vv --junitxml=test-result-plenum-${{ matrix.module }}.xml ${{ matrix.module }}
+        run: python --target test_node_basic.py::testCorrectNumOfProtocolInstances -l -vv
 
-      - name: Publish Test Report
-        uses: scacap/action-surefire-report@v1
-        with:
-          check_name: Indy Plenum ${{ matrix.module }} Test Report
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          report_paths: test-result-plenum-${{ matrix.module }}.xml
+#      - name: Publish Test Report
+#        uses: scacap/action-surefire-report@v1
+#        with:
+#          check_name: Indy Plenum ${{ matrix.module }} Test Report
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          report_paths: test-result-plenum-${{ matrix.module }}.xml
 
   lint:
     name: Lint
