@@ -15,11 +15,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         
-      - name: Install ursa
-        run: apt-get install -y ursa
-        
-      - name: Powngrade pip
-#        run: python -m pytest -l -vv --junitxml=test-result-plenum-${{ matrix.module }}.xml ${{ matrix.module }}
+      - name: Downgrade pip
         run: pip install pip==10.0.0
 
       - name: Install dependencies
@@ -27,7 +23,7 @@ jobs:
 
       - name: Run Indy Plenum ${{ matrix.module }} tests
 #        run: python -m pytest -l -vv --junitxml=test-result-plenum-${{ matrix.module }}.xml ${{ matrix.module }}
-        run: python -m pytest -l -vv plenum/test/test_node_basic.py::testCorrectNumOfProtocolInstances
+        run: python -m pytest -l -vv plenum/test/bls/test_bls_bft_replica.py::test_process_prepare
 
 #      - name: Publish Test Report
 #        uses: scacap/action-surefire-report@v1
