@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Install ursa
-        run: sudo apt-get install -y ursa
+        run: apt-get install -y ursa
         
       - name: Powngrade pip
 #        run: python -m pytest -l -vv --junitxml=test-result-plenum-${{ matrix.module }}.xml ${{ matrix.module }}
