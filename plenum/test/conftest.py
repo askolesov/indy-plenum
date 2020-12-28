@@ -352,7 +352,21 @@ def _general_conf_tdir(tmp_dir):
     general_config_dir = os.path.join(tmp_dir, GENERAL_CONFIG_DIR)
     os.makedirs(general_config_dir)
     general_config = os.path.join(general_config_dir, plenum_config.GENERAL_CONFIG_FILE)
+
+    print("<> tmp file path: ", general_config)
+
+    with open(platform_config.__file__, 'r') as content_file:
+        original_content = content_file.read()
+
+    print("<> platform_config (original) content: ",  original_content)
+
     shutil.copy(platform_config.__file__, general_config)
+
+    with open(general_config, 'r') as content_file:
+        copied_content = content_file.read()
+
+    print("<> general_config (copied) content: ",  copied_content)
+
     return general_config_dir
 
 
@@ -397,6 +411,7 @@ def _tconf(general_config):
 
 @pytest.fixture(scope="module")
 def tconf(general_conf_tdir):
+    print("<> get tconf", general_conf_tdir)
     conf = _tconf(general_conf_tdir)
     return conf
 
