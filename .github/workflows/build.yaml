@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Indy Plenum ${{ matrix.module }} tests
 #        run: python -m pytest -l -vv --junitxml=test-result-plenum-${{ matrix.module }}.xml ${{ matrix.module }}
-        run: python -m pytest -l -vv plenum/test/bls/test_bls_bft_replica.py::test_process_prepare
+        run: python -m pytest -l -vv  plenum/test/script/test_bootstrap_test_node.py::test_check_valid_ip_host
 
 #      - name: Publish Test Report
 #        uses: scacap/action-surefire-report@v1
